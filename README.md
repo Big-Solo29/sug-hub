@@ -20,11 +20,10 @@ The platform prioritizes **clarity, moderation, and student safety**.
 
 ###  Public Pages
 
+* **Home/Announcements**
 * **About the SUG**
-* **Announcements**
 * **Events**
 * **EXCOs (by academic year)**
-* **Contacts**
 * **Student Voice (Anonymous Feedback)** ⭐
 
 ---
