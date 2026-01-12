@@ -161,13 +161,15 @@ To prevent abuse:
 * Abuse prevention strategy
 * UX sketches for Student Voice
 * Admin moderation flow
+* Next.js setup
+* Pages setup
 
 ### Day 2 – Project Setup & Layout
 
-* React / Next.js setup
-* Navigation & footer
+* Navigation & footer UI
 * Responsive layout
-* Placeholder pages
+* Routing
+* Meta names and description
 
 ### Day 3 – About SUG Page
 
