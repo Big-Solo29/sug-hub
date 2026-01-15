@@ -14,8 +14,8 @@ function Mobilenav() {
     // Sidebar Nav 
     const sideBarItems = [
         { name: "Home", link: '/', icon: RoofingIcon },
-        { name: "About", link: '/about', icon: LocalActivityIcon },
-        { name: "Events", link: '/events', icon: BubbleChartIcon },
+        { name: "About", link: '/about', icon: BubbleChartIcon },
+        { name: "Events", link: '/events', icon: LocalActivityIcon },
         { name: "Excos", link: '/excos', icon: Diversity1Icon },
         { name: "Student Voice", link: '/studentvoice', icon: MapsUgcIcon },
     ];
