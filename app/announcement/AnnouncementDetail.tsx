@@ -3,7 +3,7 @@ import React from 'react'
 
 function AnnouncementDetail() {
     return (
-        <div className="AnnouncementDetail flex flex-col gap-8 justify-center sm:mb-0 mb-20">
+        <div className="AnnouncementDetail flex flex-col gap-8 justify-center sm:mb-0 mb-22">
             <div className="w-full  bg-white rounded-2xl relative">
                 <button className='absolute top-5 right-5'><Share fontSize='small' /></button>
                 {/* Header  */}

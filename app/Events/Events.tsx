@@ -3,7 +3,7 @@ import React from 'react'
 
 function Events() {
     return (
-        <div className="AnnouncementDetail flex flex-col gap-8 justify-center sm:mb-0 mb-20 w-full ">
+        <div className="AnnouncementDetail flex flex-col gap-8 justify-center sm:mb-0 mb-22 w-full ">
             <div className="w-full  bg-white rounded-2xl relative p-8">
                 <button className='absolute top-5 right-5'><Share fontSize='small' /></button>
                 {/* Header  */}

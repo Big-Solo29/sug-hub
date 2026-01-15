@@ -3,7 +3,7 @@ import AnnouncementDetail from './AnnouncementDetail'
 
 function Announcement() {
     return (
-        <div className='h-[90vh] overflow-scroll pb-10'><AnnouncementDetail /></div>
+        <div ><AnnouncementDetail /></div>
     )
 }
 

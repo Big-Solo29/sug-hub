@@ -3,13 +3,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { excosByYear, getYears, Executive } from './excosData';
+import { excosByYear, getYears, Executive } from '../../utils/excosData';
 
 export default function ExcosPage() {
   const router = useRouter();
   const [selectedYear, setSelectedYear] = useState('2024-2025');
   const [mounted, setMounted] = useState(false);
-  
+
   const years = getYears();
   const currentExcos = excosByYear[selectedYear] || [];
 
@@ -31,7 +31,7 @@ export default function ExcosPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main>
       {/* Header */}
       <div className="bg-linear-to-r from-green-800 to-blue-800 text-white rounded-tr-xl rounded-tl-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -54,18 +54,17 @@ export default function ExcosPage() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
               Select Academic Session
             </h2>
-            
+
             {/* Button Group */}
             <div className="flex flex-wrap justify-center gap-3 mb-4">
               {years.map((year) => (
                 <button
                   key={year}
                   onClick={() => handleYearClick(year)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
-                    selectedYear === year
-                      ? 'hover:bg-green-900 bg-green-800 text-white shadow-lg shadow-green-200 cursor-pointer'
-                      : 'hover: bg-gray-50 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 cursor-pointer'
-                  }`}
+                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${selectedYear === year
+                    ? 'hover:bg-green-900 bg-green-800 text-white shadow-lg shadow-green-200 cursor-pointer'
+                    : 'hover: bg-gray-50 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 cursor-pointer'
+                    }`}
                 >
                   {year}
                   {selectedYear === year && (
@@ -128,8 +127,8 @@ export default function ExcosPage() {
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-purple-600 mb-2">
-                {currentExcos.filter(e => 
-                  e.position.includes('President') || 
+                {currentExcos.filter(e =>
+                  e.position.includes('President') ||
                   e.position.includes('Vice') ||
                   e.position.includes('Director')
                 ).length}
@@ -169,7 +168,7 @@ export default function ExcosPage() {
                 ))}
               </ul>
             </div>
-            
+
             <div className="bg-gray-50 rounded-xl p-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-4">
                 Leadership Roles & Contact
@@ -179,8 +178,8 @@ export default function ExcosPage() {
                   <h5 className="font-medium text-gray-700 mb-2">Key Positions:</h5>
                   <div className="flex flex-wrap gap-2">
                     {Array.from(new Set(currentExcos.map(e => e.position))).slice(0, 6).map((position, index) => (
-                      <span 
-                        key={index} 
+                      <span
+                        key={index}
                         className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full"
                       >
                         {position}
@@ -188,7 +187,7 @@ export default function ExcosPage() {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="pt-4 border-t border-gray-200">
                   <h5 className="font-medium text-gray-700 mb-3">Contact Information:</h5>
                   <div className="space-y-3">
@@ -200,7 +199,7 @@ export default function ExcosPage() {
                         sughub@university.edu
                       </a>
                     </div>
-                  
+
                     <div className="flex items-start text-gray-700">
                       <svg className="w-5 h-5 text-gray-400 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -246,7 +245,7 @@ function ExcoCard({ exco }: { exco: Executive }) {
           <span className="font-bold">Department:</span> {exco.department}
         </p>
         <p className="text-gray-500 text-sm mb-4">{exco.bio}</p>
-        
+
         <div className="flex space-x-3 pt-4 border-t border-gray-100">
           <button className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium cursor-pointer">
             View Profile

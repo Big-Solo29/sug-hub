@@ -3,7 +3,7 @@ import Events from './Events'
 
 function page() {
     return (
-        <div className='h-[90vh] overflow-scroll pb-16'>
+        <div>
             <title>Events | SUG Activities & Programs</title>
             <meta name="description" content="Explore upcoming and past Student Union Government events, programs, and activities for students throughout the academic year." />
             <div className="bg-white rounded-2xl p-6 mb-6">

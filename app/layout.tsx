@@ -35,9 +35,9 @@ export default function RootLayout({
           <div className="md:flex hidden">
             <Sidebar />
           </div>
-          <div className="md:pl-67.5 flex-1 flex flex-col  h-screen overflow-hidden ">
+          <div className="md:pl-67.5 flex-1 flex flex-col h-screen">
             <Header />
-            <div className="bg-gray-300 rounded-t-2xl h-full sm:mr-5 mr-0 sm:p-8 p-4 sm:mt-0 mt-22 min-h-[90vh] overflow-hidden">
+            <div className="bg-gray-300 rounded-t-2xl h-full sm:mr-5 mr-0 sm:p-8 p-4 sm:mt-0 mt-22 sm:min-h-[90vh] min-h-screen overflow-y-auto">
               {children}
             </div>
             <div className="flex md:hidden absolute bottom-2 left-1/2 -translate-x-1/2">
