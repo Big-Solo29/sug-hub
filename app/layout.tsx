@@ -16,9 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'SUG Executives | Student Union Government',
-  description:
-    'Meet the Student Union Government executives. View current and past executive committees representing student interests.',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  }
 };
 
 export default function RootLayout({
