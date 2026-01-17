@@ -86,10 +86,10 @@ function page() {
             {/* Student voice modal */}
             {addMessage && (
                 <section className=' fixed top-0 left-0 w-full h-screen bg-black/80 flex sm:items-center am:justify-center'>
-                    <div className='fixed top-0 left-0  w-full h-10 bg-white'></div>
+                    <div className='fixed top-0 left-0  w-full h-16 bg-white'></div>
                     <form
                         onSubmit={handleSubmit}
-                        className="bg-white rounded-2xl sm:p-6 p-4 mb-6 sm:max-w-125 max-w-full w-full mx-auto h-fit mt-13 sm:mt-0"
+                        className="bg-white rounded-2xl sm:p-6 p-4 mb-6 sm:max-w-125 max-w-full w-full mx-auto h-fit mt-15 sm:mt-0 "
                     >
                         <h2 className="text-xl font-bold mb-4 flex items-center justify-between">Student Voice
                             <button className=" w-8 h-8 rounded-full text-gray-400  flex items-center justify-center text-xl cursor-pointer" onClick={() => setAddMessage(!addMessage)}>
@@ -204,7 +204,7 @@ function page() {
                     </div>
                 </div>
                 <EventsCta />
-                {!addMessage && <button className="fixed sm:top-20 top-23 sm:right-8 right-1 w-10 h-10 rounded-full bg-[#1B7339] text-white shadow flex items-center justify-center text-xl" onClick={() => setAddMessage(!addMessage)}>
+                {!addMessage && <button className="fixed sm:top-20 top-23 sm:right-8 right-1 w-10 h-10 rounded-full bg-[#1B7339] text-white shadow flex items-center justify-center text-xl " onClick={() => setAddMessage(!addMessage)}>
                     +
                 </button>}
             </section>
