@@ -1,4 +1,4 @@
-import { Search } from '@mui/icons-material'
+import { Search, SupportAgent } from '@mui/icons-material'
 import React from 'react'
 
 function Header() {
@@ -37,4 +37,5 @@ function Header() {
         </div>
     )
 }
+
 export default Header
