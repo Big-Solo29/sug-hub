@@ -4,6 +4,7 @@ import CallToAction from './ui/CallToAction'
 interface AuthLayoutProps {
   children: React.ReactNode;
   title: string;
+  subtitle: string;
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
