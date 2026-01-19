@@ -50,7 +50,6 @@ Home
  │     ├── 2023/2024
  │     └── 2024/2025
  ├── Student Voice (Anonymous Feedback)
- └── Contacts
 ```
 
 ---
@@ -93,7 +92,6 @@ To prevent abuse:
 {
   "bannedWords": [
     "abuse",
-    "insult",
     "threat",
     "violence",
     "hate"
