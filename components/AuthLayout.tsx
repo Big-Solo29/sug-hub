@@ -1,5 +1,6 @@
 import React from 'react';
 import CallToAction from './ui/CallToAction'
+import Link from 'next/link';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -27,28 +28,15 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) =>
           <div className="w-full lg:w-1/2 p-8">
             <div className="max-w-md mx-auto">
               {/* Mobile Header */}
-              <div className="lg:hidden text-center mb-8">
-                <div className="flex items-center justify-center mb-4">
-                  <span className="flex items-center text-[20px] font-extrabold text-[#1B7339] tracking-wide">
-                    <span className='text-[#1B7339] border-2 border-[#1B7339] rounded-full p-2 mr-2 w-10 h-10 flex items-center justify-center'>𝓢</span>
-                    <p className="text-black">UG.</p>HUB
-                  </span>
+              <div className=" text-center mb-8">
+                <div className="flex items-center justify-center mb-4 lg:mb-6">
+                  <Link href='/' className=' border-2 border-[#1B7339] rounded-full p-2 mr-2 flex items-center justify-center'><img src="/logo.png" alt="" className=' sm:w-12.5 sm:h-12.5 w-10 h-10 object-cover' /></Link>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
                 <p className="text-gray-600 mt-2">{subtitle}</p>
               </div>
 
-              {/* Desktop Header */}
-              <div className="hidden lg:block text-center mb-8">
-                <div className="flex items-center justify-center mb-6">
-                  <span className="flex items-center text-[20px] font-extrabold text-[#1B7339] tracking-wide">
-                    <span className='text-[#1B7339] border-2 border-[#1B7339] rounded-full p-2 mr-2 w-10 h-10 flex items-center justify-center'>𝓢</span>
-                    <p className="text-black">UG.</p>HUB
-                  </span>
-                </div>
-                <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
-                <p className="text-gray-600 mt-2">{subtitle}</p>
-              </div>
+
 
               {children}
             </div>

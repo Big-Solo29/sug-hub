@@ -22,13 +22,13 @@ function Sidebar() {
 
 
     return (
-        <div className="bg-white fixed top-0 left-0 w-67.5 h-screen flex flex-col  py-5 gap-10">
+        <div className="bg-white fixed top-0 left-0 w-67.5 h-screen flex flex-col  py-2 gap-10">
             {/* lSidebar Container */}
             <section className="w-[80%] mx-auto flex flex-col gap-2">
                 {/* Logo Section  */}
                 <div className="flex items-center relative pb-6">
                     <span className="flex items-center w-full rounded-lg px-4 text-2xl font-extrabold text-[#1B7339] tracking-wide">
-                        <span className='text-[#1B7339] text-2xl border-2 border-[#1B7339] rounded-full p-3 mr-1 w-12 h-12 flex items-center justify-center'>𝓢</span>
+                        <Link href='/' className=' border-2 border-[#1B7339] rounded-full p-2 mr-2 flex items-center justify-center'><img src="/logo.png" alt="" className=' w-8 h-8 object-cover' /></Link>
                         <p className="text-black  ">UG.</p>HUB
                     </span>
                 </div>

@@ -1,22 +1,19 @@
 'use client'
 import { useUserInfo } from '@/utils/logics/userLogic'
-import { Search, SupportAgent } from '@mui/icons-material'
+import { Search } from '@mui/icons-material'
 import Link from 'next/link'
 
 function Header() {
     const { user, loading } = useUserInfo()
     return (
-        <div className='bg-white py-3  fixed top-0 left-0 md:left-67.5 right-0 z-10  '>
+        <div className='bg-white sm:py-3 py-2  fixed top-0 left-0 md:left-67.5 right-0 z-10  '>
 
             {/* container  */}
             <section className='flex items-center justify-center gap-2 w-[95%] mx-auto'>
 
                 {/* Logo Section for desktop -  mobile */}
                 <div className="md:hidden flex  items-center  md:w-1/4">
-                    <span className="flex items-center text-[18px] font-extrabold text-[#1B7339] tracking-wide">
-                        <span className='text-[#1B7339] border-2 border-[#1B7339] rounded-full p-3 sm:mr-3 mr-1 md:w-10 w-8 md:h-10 h-8 flex items-center justify-center'>𝓢</span>
-                        <p className="text-black">UG.</p>HUB
-                    </span>
+                    <Link href='/' className=' border-2 border-[#1B7339] rounded-full p-2 mr-2 flex items-center justify-center'><img src="/logo.png" alt="" className=' w-8 h-8 object-cover' /></Link>
                 </div>
 
                 {/* Search Bar - centered and responsive */}
