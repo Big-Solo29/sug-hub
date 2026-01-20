@@ -14,7 +14,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) =>
         <div className="flex flex-col lg:flex-row">
           {/* Image Column - Hidden on mobile */}
           <div className="hidden lg:block lg:w-1/2 relative min-h-125">
-            <div className="absolute inset-0 bg-linear-to-b from-green-800 to-green-800/10  flex items-center justify-center">
+            <div className="absolute inset-0 bg-linear-to-b from-green-800 from-5% to-white  flex items-center justify-center">
               <div className="text-white text-center">
                 <p className="text-blue-200 text-xl">
                   <CallToAction />
