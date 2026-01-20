@@ -3,13 +3,13 @@ import React from 'react';
 const App: React.FC = () => {
     return (
         <div className=' w-full max-w-3xl mx-auto px-10 sm:px-16'>
-            <div className="flex flex-col md:flex-row text-center md:text-left items-center justify-between py-8 sm:py-1 sm:px-20 rounded-full  -mt-10 -mb-10 w-full bg-white animate-pulse-slow">
-                <p className="text-xl font-semi-bold pr-3 -ml-16 text-black px-2">
+            <div className="flex flex-col md:flex-row text-center md:text-left items-center justify-between py-8 sm:py-1 sm:px-20 rounded-2xl  -mt-10 -mb-10 w-full bg-white animate-pulse-slow">
+                <p className="text-xl font-semi-bold pr-3 -ml-16 text-gray-700 px-2">
                     SUG HUB, where all voice matters!
                 </p>
                 <a
                     href="#"
-                    className="flex items-center rounded-full py-5 px-8 -mr-18 bg-black hover:bg-gray-900 transition text-gray-200"
+                    className="flex items-center rounded-2xl py-4 px-8 -mr-18 bg-black hover:bg-gray-900 transition text-gray-200"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -32,11 +32,16 @@ const App: React.FC = () => {
                 </a>
             </div>
             <div>
-                <p className="absolute bottom-0 left-0 px-14 pb-12 text-left font-bold font-mono text-4xl sm:text-5xl md:text-6xl 
+
+
+                <p className="absolute bottom-0 left-0 px-14 pb-12 text-left 
+              font-extrabold text-5xl  
+              tracking-wide uppercase 
               bg-clip-text text-black
               animate-gradient-x">
                     Transparency. Feedback. Impact.
                 </p>
+
 
             </div>
 
