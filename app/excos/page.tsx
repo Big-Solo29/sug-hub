@@ -6,8 +6,10 @@ import { Edit2 } from 'lucide-react';
 import ExcoUpdateModal from './modals/ExcoUpdateModal';
 import { excosByYear, Executive, getYears } from '@/utils/excosData';
 import { useExcoModal } from '@/utils/logics/useExcoModal';
+import { useUserInfo } from '@/utils/logics/userLogic';
 
 function ExcoCard({ exco, onEdit }: { exco: Executive; onEdit: (exco: Executive) => void }) {
+  const { user } = useUserInfo()
   const handleEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
@@ -23,13 +25,14 @@ function ExcoCard({ exco, onEdit }: { exco: Executive; onEdit: (exco: Executive)
           </div>
         </div>
 
-        <button
-          onClick={handleEditClick}
-          className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer"
-          aria-label={`Edit ${exco.name}`}
-        >
-          <Edit2 className="w-4 h-4 text-green-800 group-hover:text-white transition-colors duration-200" />
-        </button>
+        {user.type !== 'student' && (
+          <button
+            onClick={handleEditClick}
+            className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer"
+            aria-label={`Edit ${exco.name}`}
+          >
+            <Edit2 className="w-4 h-4 text-green-800 hover:text-white transition-colors duration-200" />
+          </button>)}
 
         <div className="absolute bottom-4 right-4">
           <span className="px-3 py-1 bg-green-800 text-white text-xs font-semibold rounded-full">{exco.position}</span>

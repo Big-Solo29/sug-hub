@@ -5,31 +5,21 @@ import { anonymousMessageLogic } from "@/utils/logics/anonymousMessageLogic";
 import { useAnnouncementLogic } from "@/utils/logics/createAnnouncementLogic";
 import { Search } from "@mui/icons-material";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 
-export default function SearchPage() {
+function SearchResults() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get("query")?.toLowerCase() || "";
 
     const [searchTerm, setSearchTerm] = useState(query);
 
-    // keep input synced with URL
     useEffect(() => {
         setSearchTerm(query);
     }, [query]);
 
-    const {
-        announcements,
-        loadingAnnouncements,
-        viewAnnouncements,
-    } = useAnnouncementLogic();
-
-    const {
-        messages,
-        loadingMessages,
-    } = anonymousMessageLogic();
-
+    const { announcements, loadingAnnouncements, viewAnnouncements } = useAnnouncementLogic();
+    const { messages, loadingMessages } = anonymousMessageLogic();
     const loading = loadingAnnouncements || loadingMessages;
 
     const handleSearch = (e: React.FormEvent) => {
@@ -38,7 +28,6 @@ export default function SearchPage() {
         router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
     };
 
-    //  SEARCH FILTER
     const results = useMemo(() => {
         if (!query) return [];
 
@@ -71,7 +60,7 @@ export default function SearchPage() {
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
-            {/*  SEARCH INPUT */}
+            {/* Search Input */}
             <form
                 onSubmit={handleSearch}
                 className="fixed top-14 left-0 w-full mb-8 md:hidden flex gap-3 bg-white p-4 rounded-2xl shadow-sm z-10"
@@ -83,16 +72,14 @@ export default function SearchPage() {
                     placeholder="Search announcements & messages..."
                     className="flex-1 px-4 py-2 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-green-500"
                 />
-
-
-                <button type="submit" className='hover:text-[#1B7339]  cursor-pointer'> <Search /></button>
-
+                <button type="submit" className="hover:text-[#1B7339] cursor-pointer">
+                    <Search />
+                </button>
             </form>
 
             {/* TITLE */}
             <h1 className="text-2xl font-semibold mb-6">
-                Search results for{" "}
-                <span className="text-green-600">"{query}"</span>
+                Search results for <span className="text-green-600">"{query}"</span>
             </h1>
 
             {loading ? (
@@ -105,34 +92,20 @@ export default function SearchPage() {
                         <div
                             key={`${item.type}-${item.id}`}
                             className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer hover:scale-[1.02] duration-300"
-                            onClick={
-                                item.type === "announcement"
-                                    ? () => viewAnnouncements(item.id)
-                                    : undefined
-                            }
+                            onClick={item.type === "announcement" ? () => viewAnnouncements(item.id) : undefined}
                         >
-                            {/* IMAGE */}
                             <img
-                                src={
-                                    item.imageUrl ||
-                                    "https://www.pictorem.com/uploads/collection/K/KU10ITO7AEI/900_Andreas-Wonisch_DSC_0035.jpg"
-                                }
+                                src={item.imageUrl || "https://www.pictorem.com/uploads/collection/K/KU10ITO7AEI/900_Andreas-Wonisch_DSC_0035.jpg"}
                                 alt=""
                                 className="h-40 w-full object-cover"
                             />
-
-                            {/* CONTENT */}
                             <div className="p-4">
-                                <p className="font-semibold text-sm line-clamp-2">
-                                    {item.title}
-                                </p>
-
+                                <p className="font-semibold text-sm line-clamp-2">{item.title}</p>
                                 <p className="text-xs text-gray-500 mt-1">
                                     {item.createdAt
                                         ? item.createdAt.toDate().toLocaleDateString()
                                         : "Unknown date"}
                                 </p>
-
                                 <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-green-100 text-green-700">
                                     {item.type}
                                 </span>
@@ -142,5 +115,13 @@ export default function SearchPage() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function SearchPageWrapper() {
+    return (
+        <Suspense fallback={<Loader />}>
+            <SearchResults />
+        </Suspense>
     );
 }
