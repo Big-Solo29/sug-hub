@@ -8,10 +8,8 @@ interface Executive {
   name: string;
   position: string;
   department: string;
-  email?: string;
-  phone?: string;
   bio?: string;
-  imageUrl?: string;
+  image?: string;
 }
 
 interface ExcoUpdateModalProps {
@@ -32,10 +30,8 @@ const ExcoUpdateModal: React.FC<ExcoUpdateModalProps> = ({
     name: '',
     position: '',
     department: '',
-    email: '',
-    phone: '',
     bio: '',
-    imageUrl: ''
+    image: ''
   });
   
   const [loading, setLoading] = useState(false);
@@ -62,7 +58,7 @@ const ExcoUpdateModal: React.FC<ExcoUpdateModalProps> = ({
   useEffect(() => {
     if (excoMember) {
       setFormData(excoMember);
-      setImagePreview(excoMember.imageUrl || null);
+      setImagePreview(excoMember.image || null);
       
       // Check if the position is "Other" or not in the predefined options
       const isOtherPosition = !positionOptions.includes(excoMember.position) && excoMember.position !== '';
@@ -250,36 +246,6 @@ const ExcoUpdateModal: React.FC<ExcoUpdateModalProps> = ({
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition"
                 placeholder="Computer Science"
                 required
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Mail className="w-4 h-4 mr-2 text-green-800" />
-                Email Address
-              </label>
-              <input
-                type="email"
-                value={formData.email || ''}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition"
-                placeholder="exco@university.edu"
-              />
-            </div>
-
-            {/* Phone */}
-            <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Phone className="w-4 h-4 mr-2 text-green-800" />
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                value={formData.phone || ''}
-                onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition"
-                placeholder="+234 800 000 0000"
               />
             </div>
 
