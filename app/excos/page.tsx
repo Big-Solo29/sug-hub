@@ -6,9 +6,11 @@ import { Edit2 } from 'lucide-react';
 import { excosByYear, getYears, Executive } from '../../utils/excosData';
 import ExcoUpdateModal from './modals/ExcoUpdateModal';
 import { useExcoModal } from '../../utils/logics/useExcoModal';
+import { useUserInfo } from '@/utils/logics/userLogic';
 
 
 function ExcoCard({ exco, onEdit }: { exco: Executive; onEdit: (exco: Executive) => void }) {
+  const { user } = useUserInfo()
   const handleViewProfile = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
@@ -41,21 +43,21 @@ function ExcoCard({ exco, onEdit }: { exco: Executive; onEdit: (exco: Executive)
             </span>
           </div>
         </div>
-        
+
         {/* Edit Button - FIXED */}
-          <button
-            onClick={handleEditClick}
-            className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer group"
-            aria-label={`Edit ${exco.name}`}
-            type="button">
-          <Edit2 className="w-4 h-4 text-green-800 group-hover:text-white transition-colors duration-200" />
-          </button>
-        
-          <div className="absolute bottom-4 right-4">
-            <span className="px-3 py-1 bg-green-800 text-white text-xs font-semibold rounded-full">
-              {exco.position}
-            </span>
-          </div>
+        <button
+          onClick={handleEditClick}
+          className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer group"
+          aria-label={`Edit ${exco.name}`}
+          type="button">
+          {user.type !== 'student' && <Edit2 className="w-4 h-4 text-green-800 hover:text-white transition-colors duration-200" />}
+        </button>
+
+        <div className="absolute bottom-4 right-4">
+          <span className="px-3 py-1 bg-green-800 text-white text-xs font-semibold rounded-full">
+            {exco.position}
+          </span>
+        </div>
       </div>
 
       {/* Card Content */}
@@ -92,7 +94,7 @@ export default function ExcosPage() {
   const router = useRouter();
   const [selectedYear, setSelectedYear] = useState('2024-2025');
   const [mounted, setMounted] = useState(false);
-  
+
   // Use the modal hook
   const { isModalOpen, selectedExco, openModal, closeModal, handleUpdate } = useExcoModal();
 
@@ -147,11 +149,10 @@ export default function ExcosPage() {
                 <button
                   key={year}
                   onClick={() => handleYearClick(year)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all cursor-pointer duration-300 transform hover:scale-105 ${
-                    selectedYear === year
-                      ? 'bg-green-800 text-white shadow-lg shadow-green-200 hover:bg-green-900'
-                      : 'bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100 hover:border-gray-400'
-                  }`}
+                  className={`px-6 py-3 rounded-full font-medium transition-all cursor-pointer duration-300 transform hover:scale-105 ${selectedYear === year
+                    ? 'bg-green-800 text-white shadow-lg shadow-green-200 hover:bg-green-900'
+                    : 'bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100 hover:border-gray-400'
+                    }`}
                 >
                   {year}
                   {selectedYear === year && (
@@ -194,9 +195,9 @@ export default function ExcosPage() {
             <div className="overflow-x-auto overscroll-x-contain scrollbar-hide">
               <div className="flex gap-4 px-4 sm:px-6 py-4 w-max">
                 {currentExcos.map((exco: Executive) => (
-                  <ExcoCard 
-                    key={exco.id} 
-                    exco={exco} 
+                  <ExcoCard
+                    key={exco.id}
+                    exco={exco}
                     onEdit={openModal}
                   />
                 ))}

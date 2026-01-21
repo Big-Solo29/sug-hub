@@ -1,15 +1,5 @@
 import { useState } from 'react';
-
-interface Executive {
-  id: string;
-  name: string;
-  position: string;
-  department: string;
-  email?: string;
-  phone?: string;
-  bio?: string;
-  imageUrl?: string;
-}
+import { Executive } from '../excosData';
 
 export const useExcoModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,13 +16,9 @@ export const useExcoModal = () => {
   };
 
   const handleUpdate = async (updatedData: Executive): Promise<void> => {
-    // Here you would typically make an API call
     console.log('Updated exco data:', updatedData);
-    
-    // Simulate API call
     return new Promise((resolve) => {
       setTimeout(() => {
-        // In a real app, you would update your state or make API call here
         console.log('Exco updated successfully:', updatedData);
         resolve();
       }, 1500);
