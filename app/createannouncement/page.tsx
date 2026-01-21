@@ -1,108 +1,108 @@
 'use client'
 
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { useAnnouncementLogic } from '@/utils/logics/createAnnouncementLogic'
+import { useUserInfo } from '@/utils/logics/userLogic'
 
-function AnnouncementsPage() {
-    const [name, setName] = useState('')
-    const [announcement, setAnnouncement] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
-    const [loading, setLoading] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+export default function AnnouncementPage() {
+    const { user } = useUserInfo()
 
-        if (!name || !announcement || !imageUrl) {
-            toast.error('Please fill in all fields.')
-            return
-        }
-
-        const formData = {
-            name,
-            announcement,
-            imageUrl,
-            createdAt: new Date(),
-        }
-
-        setLoading(true)
-
-        // Simulate API / Firestore submission
-        setTimeout(() => {
-            console.log('Announcement submitted:', formData)
-            toast.success('Announcement added successfully!')
-            setName('')
-            setAnnouncement('')
-            setImageUrl('')
-            setLoading(false)
-        }, 1000)
-    }
-
+    const {
+        name,
+        setName,
+        title,
+        setTitle,
+        announcement,
+        setAnnouncement,
+        imageUrl,
+        setImageUrl,
+        loading,
+        handleSubmit,
+    } = useAnnouncementLogic()
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-lg flex flex-col gap-6"
+        <div className="m sm:pb-0 pb-12 flex items-center justify-center ">
+            <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="max-w-3xl w-full mx-auto"
             >
-                <h2 className="text-2xl font-bold text-gray-800 text-center">
-                    Add Announcement
-                </h2>
+                {/* HEADER */}
+                <div className="mb-8"> <h1 className="sm:text-3xl text-2xl font-semibold text-gray-900"> New Announcement </h1> <p className="mt-2 text-sm text-gray-500"> Publish updates that will be visible to all students. </p> </div>
 
-                {/* Name */}
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="name" className="font-medium text-gray-700">
-                        Name
-                    </label>
-                    <input
-                        id="name"
-                        type="text"
-                        placeholder="Your name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1B7339]"
-                    />
-                </div>
+                {/* FORM */}
+                <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 space-y-7" >
+                    {/* SECTION HEADER */} <div className="pb-4 border-b"> <h2 className="text-lg font-medium text-gray-800"> Announcement Details </h2> </div>
+                    {/* AUTHOR */}
+                    <div className="relative">
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="Admin Team"
+                            className="peer w-full px-4 pt-6 pb-2 text-sm border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#1B7339]"
+                        />
+                        <label className="absolute left-4 top-2 text-xs text-gray-500 peer-focus:text-[#1B7339] transition">Author Name</label>
+                    </div>
 
-                {/* Announcement */}
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="announcement" className="font-medium text-gray-700">
-                        Announcement
-                    </label>
-                    <textarea
-                        id="announcement"
-                        placeholder="Type your announcement..."
-                        value={announcement}
-                        onChange={(e) => setAnnouncement(e.target.value)}
-                        className="px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1B7339] resize-none"
-                        rows={4}
-                    />
-                </div>
+                    {/* TITLE */}
+                    <div className="relative">
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                            placeholder="Important update"
+                            className="peer w-full px-4 pt-6 pb-2 text-sm border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#1B7339]"
+                        />
+                        <label className="absolute left-4 top-2 text-xs text-gray-500 peer-focus:text-[#1B7339] transition">Announcement Title</label>
+                    </div>
 
-                {/* Image URL */}
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="imageUrl" className="font-medium text-gray-700">
-                        Image URL
-                    </label>
-                    <input
-                        id="imageUrl"
-                        type="text"
-                        placeholder="Paste image URL here"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        className="px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1B7339]"
-                    />
-                </div>
+                    {/* MESSAGE */}
+                    <div className="relative">
+                        <textarea
+                            rows={5}
+                            value={announcement}
+                            onChange={e => setAnnouncement(e.target.value)}
+                            placeholder="Write your announcement here..."
+                            className="peer w-full px-4 pt-6 pb-2 text-sm border border-gray-300 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-[#1B7339]"
+                        />
+                        <label className="absolute left-4 top-2 text-xs text-gray-500 peer-focus:text-[#1B7339] transition">Announcement Message</label>
+                    </div>
 
-                {/* Submit */}
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="bg-[#1B7339] hover:bg-[#14532d] text-white font-medium py-2 rounded-xl transition-all duration-200 disabled:opacity-50"
-                >
-                    {loading ? 'Submitting...' : 'Add Announcement'}
-                </button>
-            </form>
+                    {/* IMAGE URL */}
+                    <div className="relative">
+                        <input
+                            type="text"
+                            value={imageUrl}
+                            onChange={e => setImageUrl(e.target.value)}
+                            placeholder="https://example.com/image.png"
+                            className="peer w-full px-4 pt-6 pb-2 text-sm border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#1B7339]"
+                        />
+                        <label className="absolute left-4 top-2 text-xs text-gray-500 peer-focus:text-[#1B7339] transition">Image URL (optional)</label>
+                    </div>
+
+                    {/* ACTIONS */}
+                    <div className="pt-4 border-t flex justify-end gap-3">
+                        <button
+                            type="button"
+                            onClick={() => { setName(user?.firstName || ''); setTitle(''); setAnnouncement(''); setImageUrl(''); }}
+                            className="px-5 py-2 rounded-xl text-sm text-green-700 hover:bg-green-100 transition"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="px-6 py-2.5 rounded-xl bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition disabled:opacity-50"
+                        >
+                            {loading ? 'Publishing…' : 'Publish Announcement'}
+                        </button>
+                    </div>
+                </form>
+            </motion.div>
         </div>
     )
 }
-
-export default AnnouncementsPage

@@ -1,3 +1,5 @@
+"use client";
+
 import { db } from "@/lib/firebase"
 import { log } from "console"
 import { collection, doc, onSnapshot, serverTimestamp, setDoc, Timestamp, updateDoc, increment, arrayUnion, arrayRemove } from "firebase/firestore"
@@ -31,6 +33,7 @@ export const anonymousMessageLogic = () => {
     const [category, setCategory] = useState<string>('General'); // default category
     const [loadingMessages, setLoadingMessages] = useState<boolean>(true);
     const [messages, setMessages] = useState<Array<Message>>([])
+    const [messageLoading, setMessageLoading] = useState(false)
 
 
     useEffect(() => {
@@ -60,7 +63,7 @@ export const anonymousMessageLogic = () => {
             setMessages(msgSorted);
             setLoadingMessages(false);
 
-        });
+        })
 
         return () => unsubscribe();
     }, []);
@@ -75,6 +78,8 @@ export const anonymousMessageLogic = () => {
             return;
         }
 
+        setMessageLoading(true); // start loading
+
         try {
             // Use Firestore to auto-generate a unique ID
             const newMessageRef = doc(collection(db, 'anonymousMessages'));
@@ -82,23 +87,26 @@ export const anonymousMessageLogic = () => {
             await setDoc(newMessageRef, {
                 title,
                 message,
-                category,           // the school/category selection
-                likes: 0,           // initialize likes count
-                dislikes: 0,        // initialize dislikes count
-                likedBy: [],        // array to track who liked it
-                dislikedBy: [],     // optional: track who disliked it
-                createdAt: serverTimestamp(), // timestamp
+                category,
+                likes: 0,
+                dislikes: 0,
+                likedBy: [],
+                dislikedBy: [],
+                createdAt: serverTimestamp(),
             });
 
-
             toast.success('Message sent successfully!');
+            setAddMessage(false);
+            // Reset form
+            setTitle('');
+            setMessage('');
         } catch (error) {
             console.error('Error saving message:', error);
             toast.error('Error occurred while sending message');
         } finally {
-            // Reset form
-            setTitle('');
-            setMessage('');
+            setMessageLoading(false); // stop loading
+
+
         }
     };
 
@@ -159,5 +167,5 @@ export const anonymousMessageLogic = () => {
     };
 
 
-    return { loadingMessages, category, setCategory, messages, addMessage, setAddMessage, title, setTitle, message, setMessage, maxChars, handleSubmit, handleLike, handleDislike, takeScreenshot };
+    return { loadingMessages, category, setCategory, messages, addMessage, setAddMessage, title, setTitle, message, setMessage, maxChars, handleSubmit, handleLike, handleDislike, takeScreenshot, messageLoading };
 }

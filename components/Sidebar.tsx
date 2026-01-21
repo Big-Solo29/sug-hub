@@ -19,6 +19,9 @@ function Sidebar() {
         { name: "Excos", link: '/excos', icon: 'people' },
         { name: "Student Voice", link: '/studentvoice', icon: 'speak' },
     ];
+    const adminRoute = [
+        { name: "Add Announcement", link: '/createannouncement', icon: 'announcement' },
+    ];
 
 
     return (
@@ -35,7 +38,12 @@ function Sidebar() {
 
                 {/* Link Section  */}
                 {sideBarItems.map((item) =>
-                    <Link href={item.link} key={item.name} className={pathname === item.link ? 'text-white font-bold bg-[#161B22] py-3 px-4 rounded-lg' : 'text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10'}>{item.name}</Link>)}
+                    <Link href={item.link} key={item.name} className={pathname === item.link ? 'text-white font-bold bg-[#161B22] py-3 px-4 rounded-lg' : 'text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10'}>{item.name}</Link>)
+                }
+                {/* Admin Links  */}
+                {adminRoute.map((item) =>
+                    <Link href={item.link} key={item.name} className={pathname === item.link ? 'text-white font-bold bg-[#161B22] py-3 px-4 rounded-lg' : 'text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10'}>{item.name}</Link>)
+                }
                 {loading ?
                     <div className='text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10 w-full'></div>
                     : user?.email &&

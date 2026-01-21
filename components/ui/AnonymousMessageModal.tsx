@@ -8,11 +8,11 @@ interface AnonymousMessageModalProps {
 }
 
 function AnonymousMessageModal({ addMessage, setAddMessage }: AnonymousMessageModalProps) {
-    const { category, setCategory, title, setTitle, message, setMessage, maxChars, handleSubmit } = anonymousMessageLogic()
+    const { category, setCategory, title, setTitle, message, setMessage, maxChars, handleSubmit, messageLoading } = anonymousMessageLogic()
 
     return (
         <section className='z-50 fixed top-0 left-0 w-full h-screen bg-black/80 flex sm:items-center am:justify-center'>
-            <div className='fixed top-0 left-0  w-full h-16 bg-white'></div>
+            <div className='fixed top-0 left-0  w-full h-18.5 bg-white'></div>
             <form
                 onSubmit={handleSubmit}
                 className="bg-white rounded-2xl sm:p-6 p-4 mb-6 sm:max-w-125 max-w-full w-full mx-auto h-fit mt-13 sm:mt-0 "
@@ -96,8 +96,11 @@ function AnonymousMessageModal({ addMessage, setAddMessage }: AnonymousMessageMo
                     <button
                         type="submit"
                         className="text-white bg-[#1B7339] py-2 px-4 rounded-lg cursor-pointer"
+                        disabled={messageLoading}
                     >
-                        <Send />
+                        {messageLoading ? <div className="flex items-center justify-center">
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        </div> : <Send />}
                     </button>
                 </div>
             </form>
