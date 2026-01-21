@@ -30,7 +30,7 @@ export default function AnnouncementPage() {
                 className="max-w-3xl w-full mx-auto"
             >
                 {/* HEADER */}
-                <div className="mb-8"> <h1 className="sm:text-3xl text-2xl font-semibold text-gray-900"> New Announcement </h1> <p className="mt-2 text-sm text-gray-500"> Publish updates that will be visible to all students. </p> </div>
+                <div className="mb-8 sm:flex flex-col hidden"> <h1 className="sm:text-3xl text-2xl font-semibold text-gray-900"> New Announcement </h1> <p className="mt-2 text-sm text-gray-500"> Publish updates that will be visible to all students. </p> </div>
 
                 {/* FORM */}
                 <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 space-y-7" >
@@ -96,7 +96,7 @@ export default function AnnouncementPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="px-6 py-2.5 rounded-xl bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition disabled:opacity-50"
+                            className="px-6 py-2.5 rounded-xl bg-green-800 text-white text-sm font-medium hover:bg-green-700 transition disabled:opacity-50 cursor-pointer"
                         >
                             {loading ? 'Publishing…' : 'Publish Announcement'}
                         </button>

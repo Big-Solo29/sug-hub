@@ -4,11 +4,12 @@ import { auth, db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import toast from "react-hot-toast"; // import toast
 import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 export const useUserInfo = () => {
     const [user, setUser] = useState<any>({});
     const [loading, setLoading] = useState(true);
-
+    const router = useRouter();
     // GETTING CURRENT USER
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
@@ -31,6 +32,7 @@ export const useUserInfo = () => {
     const handleLogOutUser = async () => {
         try {
             await signOut(auth)
+            router.push('/');
             toast.success("Signed out successfully");
             window.location.reload()
         } catch (error) {
