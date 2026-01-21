@@ -36,7 +36,7 @@ function page() {
         <div className="w-full  mx-auto sm:mb-0 mb-22">
 
             {/* Announcement Card */}
-            <div className="bg-white rounded-2xl relative cursor-pointer hover:text">
+            <div className="bg-white rounded-2xl relative cursor-pointer hover:text min-h-[90vh]">
                 <button className="absolute top-5 right-5 cursor-pointer hover:text-[#1B7339]" onClick={() =>
                     handleShare(
                         announcement.id,

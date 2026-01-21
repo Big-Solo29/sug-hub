@@ -38,7 +38,7 @@ export default function SearchPage() {
         router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
     };
 
-    // 🔍 SEARCH FILTER
+    //  SEARCH FILTER
     const results = useMemo(() => {
         if (!query) return [];
 
