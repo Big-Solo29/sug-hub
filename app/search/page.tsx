@@ -59,7 +59,7 @@ function SearchResults() {
     }, [query, announcements, messages]);
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto  py-8 sm:py-0 px-4 sm:px-0">
             {/* Search Input */}
             <form
                 onSubmit={handleSearch}
@@ -78,8 +78,8 @@ function SearchResults() {
             </form>
 
             {/* TITLE */}
-            <h1 className="text-2xl font-semibold mb-6">
-                Search results for <span className="text-green-600">"{query}"</span>
+            <h1 className="sm:text-2xl text-lg font-semibold sm:mb-6">
+                Search results for <span className="text-[#1B7339]">"{query}"</span>
             </h1>
 
             {loading ? (
@@ -106,7 +106,7 @@ function SearchResults() {
                                         ? item.createdAt.toDate().toLocaleDateString()
                                         : "Unknown date"}
                                 </p>
-                                <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-green-100 text-green-700">
+                                <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-green-100 text-[#1B7339]">
                                     {item.type}
                                 </span>
                             </div>

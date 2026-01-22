@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowOutward, Attribution, Send, Share } from '@mui/icons-material'
 import { useParams } from 'next/navigation';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import Loader from '@/components/ui/Loader';
 import { useUserInfo } from '@/utils/logics/userLogic';
@@ -17,18 +17,20 @@ function page() {
     const [loading, setLoading] = useState(true);
     const { handleShare, setCommentText, commentText, handleAddComment, commentLoading } = useAnnouncementLogic()
     useEffect(() => {
-        const fetchAnnouncement = async () => {
-            setLoading(true);
-            const docRef = doc(db, 'announcements', announcementId);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                setAnnouncement(docSnap.data());
-            }
-            setLoading(false);
-        };
+        if (!announcementId) return;
 
-        fetchAnnouncement();
+        const docRef = doc(db, "announcements", announcementId);
+
+        const unsubscribe = onSnapshot(docRef, (docSnap) => {
+            if (docSnap.exists()) {
+                setAnnouncement({ id: docSnap.id, ...docSnap.data() });
+                setLoading(false);
+            }
+        });
+
+        return () => unsubscribe();
     }, [announcementId]);
+
 
     if (loading || !announcement) return <Loader />;
 
