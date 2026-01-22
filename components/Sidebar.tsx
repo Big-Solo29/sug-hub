@@ -43,11 +43,26 @@ function Sidebar() {
                     <Link href={item.link} key={item.name} className={pathname === item.link ? 'text-white font-bold bg-[#161B22] py-3 px-4 rounded-lg' : 'text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10'}>{item.name}</Link>)
                 }
                 {/* Admin Links  */}
-                {loading ?
-                    <div className='text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10 w-full'></div>
-                    : user?.type !== 'student' && adminRoute.map((item) =>
-                        <Link href={item.link} key={item.name} className={pathname === item.link ? 'text-white font-bold bg-[#161B22] py-3 px-4 rounded-lg' : 'text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10'}>{item.name}</Link>)
-                }
+                {loading ? (
+                    <div className="text-gray-400 py-3 px-4 rounded-lg w-full" />
+                ) : (
+                    user &&
+                    user.type !== "student" &&
+                    adminRoute.map((item) => (
+                        <Link
+                            href={item.link}
+                            key={item.name}
+                            className={
+                                pathname === item.link
+                                    ? "text-white font-bold bg-[#161B22] py-3 px-4 rounded-lg"
+                                    : "text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10"
+                            }
+                        >
+                            {item.name}
+                        </Link>
+                    ))
+                )}
+
                 {/* Logout for auth users  */}
                 {loading ?
                     <div className='text-gray-400 py-3 px-4 rounded-lg hover:bg-[#161B22]/10 w-full'></div>

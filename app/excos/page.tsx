@@ -25,7 +25,7 @@ function ExcoCard({ exco, onEdit }: { exco: Executive; onEdit: (exco: Executive)
           </div>
         </div>
 
-        {user.type !== 'student' && (
+        {user && user?.type !== 'student' && (
           <button
             onClick={handleEditClick}
             className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer"

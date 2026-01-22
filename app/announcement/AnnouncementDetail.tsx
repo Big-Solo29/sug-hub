@@ -13,7 +13,7 @@ function AnnouncementDetail() {
     } = useAnnouncementLogic()
     return (
         <div className=" flex flex-col gap-8 justify-center ">
-            {announcements.map((announcement, index) => (<div className="w-full  bg-white rounded-2xl relative" key={index}>
+            {announcements.map((announcement: any, index: number) => (<div className="w-full  bg-white rounded-2xl relative" key={index}>
                 <button className='absolute top-5 right-5 cursor-pointer hover:text-[#1B7339]' onClick={() =>
                     handleShare(
                         announcement.id,
@@ -52,7 +52,7 @@ function AnnouncementDetail() {
                 {/* Actions  */}
                 <div className="flex  px-4 py-3 text-sm text-gray-600 b sm:gap-8 gap-4">
 
-                    {user.email ? <p className="sm:w-12.5 sm:h-12.5 w-10 h-10 rounded-full bg-black text-white border-2 border-[#1B7339] flex items-center justify-center">{user.firstName.slice(0, 1)}</p> : <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center"><Attribution /></div>}
+                    {user?.email ? <p className="sm:w-12.5 sm:h-12.5 w-10 h-10 rounded-full bg-black text-white border-2 border-[#1B7339] flex items-center justify-center">{user?.firstName.slice(0, 1)}</p> : <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center"><Attribution /></div>}
 
                     <input type="text" placeholder='Drop a comment...' className='flex flex-1 outline-none  bg-gray-200 rounded-lg py-2 px-4 min-w-2' value={commentText}
                         onChange={e => setCommentText(e.target.value)} />  <button className=' text-white bg-[#1B7339] py-2 px-4 rounded-lg cursor-pointer' onClick={() => handleAddComment(announcement.id, commentText)} disabled={commentLoading}>

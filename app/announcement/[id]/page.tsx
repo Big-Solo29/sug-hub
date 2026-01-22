@@ -96,7 +96,7 @@ function page() {
 
                 {/* Comment Input */}
                 <div className="flex px-4 py-3 gap-4 border-t">
-                    {user.email ? <p className="sm:w-12.5 sm:h-12.5 w-10 h-10 rounded-full bg-black text-white border-2 border-[#1B7339] flex items-center justify-center">{user.firstName.slice(0, 1)}</p> : <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center"><Attribution /></div>}
+                    {user?.email ? <p className="sm:w-12.5 sm:h-12.5 w-10 h-10 rounded-full bg-black text-white border-2 border-[#1B7339] flex items-center justify-center">{user?.firstName.slice(0, 1)}</p> : <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center"><Attribution /></div>}
 
                     <input
                         type="text"
