@@ -1,9 +1,11 @@
+// utils/logics/useExcoModal.ts - COMPATIBLE VERSION
 import { useState } from 'react';
 import { Executive } from '../excosData';
 
 export const useExcoModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExco, setSelectedExco] = useState<Executive | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const openExcoModal = (excoMember: Executive) => {
     setSelectedExco(excoMember);

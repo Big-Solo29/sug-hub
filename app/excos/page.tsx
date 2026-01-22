@@ -134,6 +134,7 @@ export default function ExcosPage() {
               </div>
             </div>
           </div>
+        </div>
 
           {/* Executives Scroller Section */}
           <div className="mb-16 w-full overflow-hidden">

@@ -125,6 +125,13 @@ const ExcoUpdateModal: React.FC<ExcoUpdateModalProps> = ({
     }));
   };
 
+  const handleInputChange = (field: keyof Executive, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl max-h-[85vh] overflow-y-auto">
