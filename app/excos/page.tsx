@@ -1,92 +1,51 @@
+// app/excos/page.tsx - RESOLVED VERSION
 "use client";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Edit2 } from 'lucide-react';
-import { excosByYear, getYears, Executive } from '../../utils/excosData';
 import ExcoUpdateModal from './modals/ExcoUpdateModal';
+import { excosByYear, Executive, getYears } from '@/utils/excosData';
+import { useExcoModal } from '@/utils/logics/useExcoModal';
+import { useUserInfo } from '@/utils/logics/userLogic';
 
-// Create a type that's compatible with both interfaces
-type ExecutiveWithOptionalImage = Omit<Executive, 'image'> & {
-  image?: string;
-  imageUrl?: string;
-};
-
-// ExcoCard Component
 function ExcoCard({ exco, onEdit }: { exco: Executive; onEdit: (exco: Executive) => void }) {
-  const handleViewProfile = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log('View profile clicked for:', exco.name);
-  };
-
-  const handleContact = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log('Contact clicked for:', exco.name);
-  };
-
+  const { user } = useUserInfo()
   const handleEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log('Edit clicked for:', exco.name);
     onEdit(exco);
   };
 
   return (
     <div className="shrink-0 w-65 sm:w-70 md:w-75 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 relative">
-      {/* Card Image with Edit Overlay */}
-      <div className="relative h-48 bg-linear-to-br from-green-50 to-blue-50 overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-green-50 to-blue-50 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-32 h-32 bg-linear-to-br from-green-100 to-blue-100 rounded-full flex items-center justify-center">
-            <span className="text-4xl font-bold text-green-800">
-              {exco.name.charAt(0)}
-            </span>
+          <div className="w-32 h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-full flex items-center justify-center">
+            <span className="text-4xl font-bold text-green-800">{exco.name.charAt(0)}</span>
           </div>
         </div>
-        
-        {/* Edit Button */}
-        <button
-          onClick={handleEditClick}
-          className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer group"
-          aria-label={`Edit ${exco.name}`}
-          type="button"
-        >
-          <Edit2 className="w-4 h-4 text-green-800 group-hover:text-white transition-colors duration-200" />
-        </button>
-        
+
+        {user && user?.type !== 'student' && (
+          <button
+            onClick={handleEditClick}
+            className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-green-800 hover:scale-110 transition-all duration-200 z-20 cursor-pointer group"
+            aria-label={`Edit ${exco.name}`}
+            type="button"
+          >
+            <Edit2 className="w-4 h-4 text-green-800 group-hover:text-white transition-colors duration-200" />
+          </button>
+        )}
+
         <div className="absolute bottom-4 right-4">
-          <span className="px-3 py-1 bg-green-800 text-white text-xs font-semibold rounded-full">
-            {exco.position}
-          </span>
+          <span className="px-3 py-1 bg-green-800 text-white text-xs font-semibold rounded-full">{exco.position}</span>
         </div>
       </div>
 
-      {/* Card Content */}
       <div className="p-6">
         <h4 className="text-xl font-bold text-gray-900 mb-2">{exco.name}</h4>
-        <p className="text-gray-600 mb-3">
-          <span className="font-bold">Department:</span> {exco.department}
-        </p>
+        <p className="text-gray-600 mb-3"><span className="font-bold">Department:</span> {exco.department}</p>
         <p className="text-gray-500 text-sm mb-4 line-clamp-3">{exco.bio}</p>
-
-        {/* Action Buttons */}
-        <div className="flex space-x-3 pt-4 border-t border-gray-100">
-          <button
-            onClick={handleViewProfile}
-            className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium active:scale-95 cursor-pointer"
-            type="button"
-          >
-            View Profile
-          </button>
-          <button
-            onClick={handleContact}
-            className="flex-1 px-4 py-2 bg-green-800 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium active:scale-95 cursor-pointer"
-            type="button"
-          >
-            Contact
-          </button>
-        </div>
       </div>
     </div>
   );
@@ -97,16 +56,11 @@ export default function ExcosPage() {
   const [selectedYear, setSelectedYear] = useState('2024-2025');
   const [mounted, setMounted] = useState(false);
   
-  // Modal state
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedExco, setSelectedExco] = useState<ExecutiveWithOptionalImage | null>(null);
-  const [isUpdating, setIsUpdating] = useState(false);
-  
-  // State for excos data
-  const [excosData, setExcosData] = useState<Record<string, Executive[]>>(excosByYear);
-
   const years = getYears();
-  const currentExcos = excosData[selectedYear] || [];
+  const currentExcos = excosByYear[selectedYear] || [];
+
+  // Modal hook
+  const { isModalOpen, selectedExco, openExcoModal, closeExcoModal, handleUpdate, isUpdating } = useExcoModal();
 
   useEffect(() => {
     setMounted(true);
@@ -115,64 +69,6 @@ export default function ExcosPage() {
   const handleYearClick = (year: string) => {
     setSelectedYear(year);
     router.push(`/excos?year=${year}`, { scroll: false });
-  };
-
-  // Modal functions
-  const openModal = (excoMember: Executive) => {
-    console.log('Opening modal for:', excoMember.name);
-    // Convert to compatible type for modal
-    const compatibleExco: ExecutiveWithOptionalImage = {
-      ...excoMember,
-      imageUrl: excoMember.image
-    };
-    setSelectedExco(compatibleExco);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    console.log('Closing modal');
-    setIsModalOpen(false);
-    setSelectedExco(null);
-    setIsUpdating(false);
-  };
-
-  const handleUpdate = async (updatedData: ExecutiveWithOptionalImage): Promise<void> => {
-    console.log('Updating exco:', updatedData);
-    setIsUpdating(true);
-    
-    try {
-      // Convert back to Executive type for state update
-      const executiveData: Executive = {
-        id: updatedData.id,
-        name: updatedData.name,
-        position: updatedData.position,
-        department: updatedData.department,
-        bio: updatedData.bio || '',
-        image: updatedData.image || updatedData.imageUrl || '/images/excos/default.jpg'
-      };
-      
-      // Update state
-      setExcosData(prev => ({
-        ...prev,
-        [selectedYear]: prev[selectedYear].map(exco => 
-          exco.id === executiveData.id ? executiveData : exco
-        )
-      }));
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Update complete');
-      
-      // Close modal after successful update
-      setIsModalOpen(false);
-      setSelectedExco(null);
-      
-    } catch (error) {
-      console.error('Update failed:', error);
-      throw error;
-    } finally {
-      setIsUpdating(false);
-    }
   };
 
   if (!mounted) {
@@ -185,10 +81,9 @@ export default function ExcosPage() {
 
   return (
     <>
-      {/* Main Content - Always visible, modal overlays on top */}
       <main className={`transition-all duration-300 ${isModalOpen ? 'opacity-50 pointer-events-none' : ''}`}>
         {/* Header */}
-        <div className="bg-linear-to-r from-green-800 to-blue-800 text-white rounded-tr-xl rounded-tl-xl">
+        <div className="bg-gradient-to-r from-green-800 to-blue-800 text-white rounded-tr-xl rounded-tl-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
               <h1 className="text-5xl md:text-4xl font-bold text-gray-100 mb-4">
@@ -260,7 +155,7 @@ export default function ExcosPage() {
                     <ExcoCard 
                       key={exco.id} 
                       exco={exco} 
-                      onEdit={openModal}
+                      onEdit={openExcoModal}
                     />
                   ))}
                 </div>
@@ -269,7 +164,7 @@ export default function ExcosPage() {
           </div>
 
           {/* Quick Stats */}
-          <div className="bg-linear-to-r from-green-50 to-blue-50 rounded-2xl p-8 mb-12">
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8 mb-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               Executive Committee Stats
             </h3>
@@ -377,10 +272,10 @@ export default function ExcosPage() {
         </div>
       </main>
 
-      {/* Modal - This will overlay on top of the main content */}
+      {/* Modal */}
       <ExcoUpdateModal
         isOpen={isModalOpen}
-        onClose={closeModal}
+        onClose={closeExcoModal}
         excoMember={selectedExco}
         onUpdate={handleUpdate}
         isLoading={isUpdating}
