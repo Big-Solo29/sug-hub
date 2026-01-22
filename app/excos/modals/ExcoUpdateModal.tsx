@@ -7,7 +7,7 @@ interface Executive {
   position: string;
   department: string;
   bio: string;
-  image?: string; // Make this optional
+  image?: string; 
   imageUrl?: string;
 }
 
