@@ -1,4 +1,3 @@
-// app/excos/page.tsx - UPDATED VERSION
 "use client";
 
 import { useState, useEffect } from 'react';

@@ -1,4 +1,3 @@
-// app/excos/modals/ExcoUpdateModal.tsx - RESOLVED VERSION
 import React, { useState, useEffect } from 'react';
 import { X, Upload, Save, User, Briefcase, Building, FileText, Plus } from 'lucide-react';
 import { Executive } from '@/utils/excosData';

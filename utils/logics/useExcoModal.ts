@@ -1,4 +1,3 @@
-// utils/logics/useExcoModal.ts - COMPATIBLE VERSION
 import { useState } from 'react';
 import { Executive as ExcosDataExecutive } from '@/utils/excosData';
 
