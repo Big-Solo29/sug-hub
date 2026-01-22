@@ -63,14 +63,14 @@ function SearchResults() {
             {/* Search Input */}
             <form
                 onSubmit={handleSearch}
-                className="fixed top-14 left-0 w-full mb-8 md:hidden flex gap-3 bg-white p-4 rounded-2xl shadow-sm z-10"
+                className="fixed top-15 left-0 w-full mb-8 md:hidden flex gap-3 bg-white p-4 rounded-b-2xl shadow-sm z-10"
             >
                 <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search announcements & messages..."
-                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-green-500"
+                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-green-500 min-w-2"
                 />
                 <button type="submit" className="hover:text-[#1B7339] cursor-pointer">
                     <Search />
