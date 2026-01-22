@@ -9,7 +9,6 @@ import {
 } from "@mui/icons-material";
 import { useAnnouncementLogic } from "@/utils/logics/createAnnouncementLogic";
 import { anonymousMessageLogic } from "@/utils/logics/anonymousMessageLogic";
-import Loader from "@/components/ui/Loader";
 
 function EventsCta() {
     const {
@@ -40,7 +39,9 @@ function EventsCta() {
                 </p>
 
                 {loadingAnnouncements ? (
-                    <Loader />
+                    <div className="flex items-center justify-center">
+                        <div className="w-10 h-10 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </div>
                 ) : announcements.slice(0, 2).map((ann) => (
                     <div
                         key={ann.id}
@@ -74,7 +75,9 @@ function EventsCta() {
                 </p>
 
                 {loadingMessages ? (
-                    <Loader />
+                    <div className="flex items-center justify-center">
+                        <div className="w-10 h-10 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </div>
                 ) : messages.slice(0, 2).map((msg) => (
                     <div
                         key={msg.id}
