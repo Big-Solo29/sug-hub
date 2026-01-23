@@ -19,7 +19,7 @@ export default function Home() {
 
       <section className='flex gap-8'>
         {loadingAnnouncements || announcements.length < 1 ? <div className="md:flex-1/4 flex-1"><Loader /> </div> :
-          <div className=" flex md:flex-1/4 w-full">
+          <div className=" flex items-center justify-center md:flex-1/4 w-full ">
             <AnnouncementDetail />
           </div>
         }
