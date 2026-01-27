@@ -1,11 +1,11 @@
 import { anonymousMessageLogic } from "@/utils/logics/anonymousMessageLogic";
 import React from "react";
 
-function Loader({ label = "Loading..." }: { label?: string }) {
+function Loader() {
     const { messages } = anonymousMessageLogic()
 
     return (
-        <section className="w-full min-h-[90vh] z-0 flex flex-col items-center justify-center  ">
+        <section className="w-full h-[90vh] z-0 flex flex-col items-center justify-center  ">
             {/* Logo + Spinner */}
             <div className="relative flex items-center justify-center">
                 {/* Outer rotating ring */}
@@ -24,11 +24,7 @@ function Loader({ label = "Loading..." }: { label?: string }) {
                 </div>
             </div>
 
-            {/* Text */}
-            <p className="mt-4 text-sm font-semibold tracking-wide text-[#1B7339]">
-                {/* {messages.length <= 0 ? "No messages yet" : label} */}
-                {label}
-            </p>
+
         </section>
     );
 }
